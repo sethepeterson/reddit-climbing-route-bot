@@ -70,3 +70,8 @@ The file must be in the format:
 5. user agent
 
 After this is completed, simply execute rClimbingBot.py.
+
+## To Do
+- Improve route detection accuracy.
+- Yosemite decimal system to other grading systems conversion.
+- Implement check to determine if a submission has already been considered.

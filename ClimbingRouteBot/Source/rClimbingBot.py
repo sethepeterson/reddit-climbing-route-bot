@@ -13,14 +13,14 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 # Create list of replied post IDs from repliedPosts.txt.
 repliedPosts = []
-with open(os.path.dirname(__file__) + '\\repliedPosts.txt', 'r') as file:
+with open(os.path.dirname(__file__) + '\\..\\Logging\\repliedPosts.txt', 'r') as file:
     repliedPosts = file.read()
     repliedPosts = repliedPosts.split('\n')
     repliedPosts = list(filter(None, repliedPosts))
     file.close()
 
 # Read credentialsFile and create the Reddit instance.
-with open(os.path.dirname(__file__) + "\\..\\..\\ClimbingRouteBotInfo.txt", "r") as file:
+with open(os.path.dirname(__file__) + "\\..\\..\\..\\ClimbingRouteBotInfo.txt", "r") as file:
     credentials = file.read().split()
     reddit = praw.Reddit(client_id = credentials[0],
                         client_secret = credentials[1],

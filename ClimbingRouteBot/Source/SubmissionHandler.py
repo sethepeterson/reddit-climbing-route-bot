@@ -106,7 +106,7 @@ class SubmissionHandler:
         options = Options()
         options.headless = True
         options.add_argument('--log-level-3')
-        chromeDriverPath = os.path.dirname(__file__) + '\\chromedriver.exe'
+        chromeDriverPath = os.path.dirname(__file__) + '\\..\\Tools\\chromedriver.exe'
         browser = webdriver.Chrome(chrome_options=options, executable_path=chromeDriverPath)
         browser.get(searchURL)
         searchPageHtml = browser.page_source
@@ -182,7 +182,7 @@ class SubmissionHandler:
         options = Options()
         options.headless = True
         options.add_argument('--log-level-3')
-        chromeDriverPath = os.path.dirname(__file__) + '\\chromedriver.exe'
+        chromeDriverPath = os.path.dirname(__file__) + '\\..\\Tools\\chromedriver.exe'
         browser = webdriver.Chrome(chrome_options=options, executable_path=chromeDriverPath)
         browser.get(routeWebAddress)
         routePageHtml = browser.page_source

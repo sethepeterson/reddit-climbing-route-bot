@@ -78,5 +78,5 @@ After this is completed, simply execute rClimbingBot.py.
 </br></br>
 ## To Do
 - Improve route detection accuracy.
-- Yosemite decimal system to other grading systems conversion.
+- Implement Yosemite Decimal System to other grading systems conversion.
 - Implement check to determine if a submission has already been considered.

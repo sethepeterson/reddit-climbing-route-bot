@@ -13,20 +13,22 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 # Create list of replied post IDs from repliedPosts.txt.
 repliedPosts = []
-with open('repliedPosts.txt', 'r') as file:
+with open(os.path.dirname(__file__) + '\\repliedPosts.txt', 'r') as file:
     repliedPosts = file.read()
     repliedPosts = repliedPosts.split('\n')
     repliedPosts = list(filter(None, repliedPosts))
+    file.close()
 
 # Read credentialsFile and create the Reddit instance.
-credentialsFile = open(os.path.dirname(__file__) + "\\..\\..\\ClimbingRouteBotInfo.txt", "r")
-credentials = credentialsFile.readlines()[1].split()
-reddit = praw.Reddit(client_id = credentials[0],
-                     client_secret = credentials[1],
-                     username = credentials[2],
-                     password = credentials[3],
-                     user_agent = credentials[4])
-subreddit = reddit.subreddit('climbing+Bouldering+socalclimbing+ClimbingPorn+ClimbingVids')
+with open(os.path.dirname(__file__) + "\\..\\..\\ClimbingRouteBotInfo.txt", "r") as file:
+    credentials = file.read().split()
+    reddit = praw.Reddit(client_id = credentials[0],
+                        client_secret = credentials[1],
+                        username = credentials[2],
+                        password = credentials[3],
+                        user_agent = credentials[4])
+    subreddit = reddit.subreddit('climbing+Bouldering+socalclimbing+ClimbingPorn+ClimbingVids')
+    file.close()
 
 while True:
     for submission in subreddit.new(limit=100):
@@ -39,42 +41,43 @@ while True:
                     titleInfoList = submissionHandler.getTitleInfo()
 
                     if titleInfoList is not None:
-                        #routeInfo = [routeName, locationChain, ydsRating, avgScore, routeType, firstAccent, description, mountainProjectLink]
+                        # routeInfo = [routeName, locationChain, ydsRating, avgScore, routeType, firstAccent, description, mountainProjectLink]
                         routeInfo = submissionHandler.getRouteInfo(titleInfoList)
 
                         if routeInfo is not None:
-                            #Route header.
+                            # Route header.
                             comment = '## [' + routeInfo[0] + '](' + routeInfo[8] + ' \"Mountain Project\")\n\n'
                             comment += routeInfo[1] + '\n\n'
 
-                            #Table of info.
+                            # Table of info.
                             comment += '***\n\n'
                             comment += 'Rating: ' + routeInfo[2] + '\n\n'
                             comment += 'Score ' + routeInfo[3] + '\n\n'
                             comment += 'Type: ' + routeInfo[4] + '\n\n'
                             comment += 'FA: ' + routeInfo[5] + '\n\n'
 
-                            #Description of the route.
+                            # Description of the route.
                             if routeInfo[6] is not None:
                                 comment += 'Description:\n\n'
                                 comment += '>' + routeInfo[6]
 
-                            #Protection of the route.
+                            # Protection of the route.
                             if routeInfo[7] is not None:
                                 comment += '\n\nProtection:\n\n'
                                 comment += '>' + routeInfo[7]
 
-                            #Signature.
+                            # Signature.
                             comment += '\n\nI am a bot, beep boop.\n\n'
                             comment += '[Feedback](https://np.reddit.com/message/compose?to=ClimbingRouteBot \"PM\'s and comments are monitored! Feedback is welcome.\")'
 
                             submission.reply(comment)
                             repliedPosts.append(submission.id)
 
-                            #Update repliedPosts.txt
+                            # Update repliedPosts.txt
                             with open('repliedPosts.txt', 'w+') as file:
                                 for postID in repliedPosts:
                                     file.write(postID + '\n')
+                                file.close()
 
                             print()
                             timer = 400

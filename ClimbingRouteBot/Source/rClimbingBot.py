@@ -31,6 +31,8 @@ with open(os.path.dirname(__file__) + "\\..\\..\\..\\ClimbingRouteBotInfo.txt", 
     file.close()
 
 # Execute script.
+REDDIT_NEW_LINE = '\n\n'
+NEW_LINE = '\n'
 submissionHandler = SubmissionHandler()
 while True:
     for submission in subreddit.new(limit=100):
@@ -46,15 +48,22 @@ while True:
                             # Route header.
                             comment = '## [' + routeInfo[0] + \
                                 '](' + routeInfo[8] + \
-                                ' \"Mountain Project\")\n\n'
-                            comment += routeInfo[1] + '\n\n'
+                                ' \"Mountain Project\")' + REDDIT_NEW_LINE
+                            comment += routeInfo[1] + REDDIT_NEW_LINE
 
                             # Table of info.
                             comment += '***\n\n'
-                            comment += 'Rating: ' + routeInfo[2] + '\n\n'
-                            comment += 'Score ' + routeInfo[3] + '\n\n'
-                            comment += 'Type: ' + routeInfo[4] + '\n\n'
-                            comment += 'FA: ' + routeInfo[5] + '\n\n'
+                            # comment += 'Rating: ' + routeInfo[2] + '\n\n'
+                            # comment += 'Score ' + routeInfo[3] + '\n\n'
+                            # comment += 'Type: ' + routeInfo[4] + '\n\n'
+                            # comment += 'FA: ' + routeInfo[5] + '\n\n'
+
+                            comment += '|||' + NEW_LINE
+                            comment += '|:-|:-:|' + NEW_LINE
+                            comment += '|Rating| ' + routeInfo[2] +'|' + NEW_LINE
+                            comment += '|Average Score| ' + routeInfo[3] + '|' + NEW_LINE
+                            comment += '|Type| ' + routeInfo[4] + '|' + NEW_LINE
+                            comment += '|First Ascent| ' + routeInfo[5] + '|' + REDDIT_NEW_LINE
 
                             # Description of the route.
                             if routeInfo[6] is not None:

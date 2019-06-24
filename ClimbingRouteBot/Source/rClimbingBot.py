@@ -30,23 +30,23 @@ with open(os.path.dirname(__file__) + "\\..\\..\\..\\ClimbingRouteBotInfo.txt", 
     subreddit = reddit.subreddit('climbing+Bouldering+socalclimbing+ClimbingPorn+ClimbingVids')
     file.close()
 
+# Execute script.
+submissionHandler = SubmissionHandler()
 while True:
     for submission in subreddit.new(limit=100):
 
         try:
             if not submission.is_self:
-
                 if submission.id not in repliedPosts:
-                    submissionHandler = SubmissionHandler(submission)
-                    titleInfoList = submissionHandler.getTitleInfo()
 
-                    if titleInfoList is not None:
-                        # routeInfo = [routeName, locationChain, ydsRating, avgScore, routeType, firstAccent, description, mountainProjectLink]
-                        routeInfo = submissionHandler.getRouteInfo(titleInfoList)
+                    # routeInfo = [routeName, locationChain, ydsRating, avgScore, routeType, firstAccent, description, mountainProjectLink]
+                    routeInfo = submissionHandler.getRouteInfo(submission)
 
-                        if routeInfo is not None:
+                    if routeInfo is not None:
                             # Route header.
-                            comment = '## [' + routeInfo[0] + '](' + routeInfo[8] + ' \"Mountain Project\")\n\n'
+                            comment = '## [' + routeInfo[0] + \
+                                '](' + routeInfo[8] + \
+                                ' \"Mountain Project\")\n\n'
                             comment += routeInfo[1] + '\n\n'
 
                             # Table of info.
@@ -83,8 +83,9 @@ while True:
                             timer = 400
                             while timer is not 0:
                                 seconds = timedelta(seconds=timer)
-                                dateTime = datetime(1,1,1) + seconds
-                                sys.stdout.write('\rComment Posted. Continuing in: %s:%s' % (dateTime.minute, dateTime.second))
+                                dateTime = datetime(1, 1, 1) + seconds
+                                sys.stdout.write('\rComment Posted. Continuing in: %s:%s' % (
+                                    dateTime.minute, dateTime.second))
                                 sys.stdout.flush()
                                 time.sleep(1)
                                 timer = timer - 1

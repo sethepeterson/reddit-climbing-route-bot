@@ -44,7 +44,7 @@ Got the flash on Hanging Judge 11b in Clear Creek, CO
 >[Feedback](https://np.reddit.com/message/compose?to=ClimbingRouteBot "PM's and comments are monitored! Feedback is welcome.")
 
 Above is an example of a generated comment. 94 comments have been posted as of May 2019. Route identification accuracy on those comments is ~95%.
-</br>This can definitely be improved, as well as number of comments posted.
+</br>This can definitely be improved, as well as the volume of comments posted.
 Only sumbmissions with titles fitting a generic format are considered at the moment.
 Broadening the scope of the format is a needed improvement, but will be difficult because Reddit's submission titles tend to be diverse.
 

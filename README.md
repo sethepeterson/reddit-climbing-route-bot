@@ -43,10 +43,10 @@ Got the flash on Hanging Judge 11b in Clear Creek, CO
 >
 >[Feedback](https://np.reddit.com/message/compose?to=ClimbingRouteBot "PM's and comments are monitored! Feedback is welcome.")
 
-Above is an example of a generate comment. 94 comments have been posted as of May 2019. Route identification accuracy on those comments is ~95%.
-</br>This can definitely be improved, as well as number of comments posted.
+Above is an example of a generated comment. 94 comments have been posted as of May 2019. Route identification accuracy on those comments is ~95%.
+</br>This can definitely be improved, as well as the volume of comments posted.
 Only sumbmissions with titles fitting a generic format are considered at the moment.
-Broadening the scope of the format is a potential improvement, as the nature of reddit submission titles is diverse.
+Broadening the scope of the format is a needed improvement, but will be difficult because Reddit's submission titles tend to be diverse.
 
 
 
@@ -78,7 +78,7 @@ After this is completed, simply execute rClimbingBot.py.
 </br></br>
 ## To Do
 🗹 Refactor scraping functionality to seperate class.
-</br>☐ Redesign comment format to include a table.
+</br>🗹 Redesign comment format to include a table.
 </br>☐ Improve route detection accuracy.
 </br>☐ Implement Yosemite Decimal System to other grading systems conversion.
 </br>☐ Implement check to determine if a submission has already been considered.

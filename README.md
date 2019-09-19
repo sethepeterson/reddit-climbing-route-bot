@@ -71,10 +71,11 @@ The file must be in the format:
 4. password
 5. user agent
 
-Example:</br>
-LVpgepkZY8W9kb 834ts3692jIxsRQO0_qH_Vq6zeG20 YourUserName YourPassword YourUserAgent
+Example:
 
-After this is completed, simply execute rClimbingBot.py.
+> LVpgepkZY8W9kb 834ts3692jIxsRQO0_qH_Vq6zeG20 YourUserName YourPassword YourUserAgent
+
+After this is completed, execute rClimbingBot.py.
 
 
 

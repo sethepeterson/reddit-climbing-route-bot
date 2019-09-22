@@ -5,7 +5,7 @@ A Reddit bot that identifies submissions containing pictures of rock climbing ro
 
 #### Requirements
 
-- Windows 10 Operating System
+- Windows 10
 - Google Chrome Version 77.0.3865.90
 
 #### Dependencies

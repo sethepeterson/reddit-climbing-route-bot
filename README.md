@@ -61,8 +61,8 @@ Broadening the scope of the format is a needed improvement, but will be difficul
 ## Execution
 To execute the script you must [sign up](https://www.reddit.com/prefs/apps "Sign up for Reddit API account") for a Reddit API account.
 Then create a text file that holds the API account credentials.
-The text file must be located at the following path (which is relative to rClimbingBot.py):
-> \\..\\..\\ClimbingRouteBotInfo.txt
+The text file must be located at the following path (which is relative to ClimbingRouteBot.py):
+> \\..\\..\\reddit_api_credentials.txt
 
 The file must be in the format:
 > <1> <2> <3> <4> <5>
@@ -79,7 +79,7 @@ Example:
 
 > LVpgepkZY8W9kb 834ts3692jIxsRQO0_qH_Vq6zeG20 YourUserName YourPassword YourUserAgent
 
-After this is completed, execute rClimbingBot.py.
+After this is completed, execute ClimbingRouteBot.py.
 
 
 

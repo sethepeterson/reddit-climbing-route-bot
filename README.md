@@ -17,17 +17,6 @@ A Reddit bot that identifies submissions containing pictures of rock climbing ro
 
 
 </br></br>
-## Results Example
-
-#### Submission
-![Submission Example](https://github.com/sethepeterson/climbing-route-bot/blob/master/media/SubmissionExample.PNG)
-
-#### Comment
-![Comment Example](https://github.com/sethepeterson/climbing-route-bot/blob/master/media/CommentExample.PNG)
-
-
-
-</br></br>
 ## Execution
 To execute the script you must [sign up](https://www.reddit.com/prefs/apps "Sign up for Reddit API account") for a Reddit API account.
 Then create a text file that holds the API account credentials.
@@ -49,3 +38,14 @@ Example:
 > LVpgepkZY8W9kb 834ts3692jIxsRQO0_qH_Vq6zeG20 YourUserName YourPassword YourUserAgent
 
 After this is completed, execute ClimbingRouteBot.py.
+
+
+
+</br></br>
+## Results
+
+#### Submission
+![Submission Example](https://github.com/sethepeterson/climbing-route-bot/blob/master/media/SubmissionExample.PNG)
+
+#### Comment
+![Comment Example](https://github.com/sethepeterson/climbing-route-bot/blob/master/media/CommentExample.PNG)

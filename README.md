@@ -18,8 +18,8 @@ A Reddit bot that identifies submissions containing pictures of rock climbing ro
 
 </br></br>
 ## Execution
-To execute the script you must [sign up for a Reddit API account](https://www.reddit.com/prefs/apps "Sign up for Reddit API account").
-Then create a text file that holds the API account credentials named reddit_api_credentials.
+To execute the script you must [sign up for a Reddit API account](https://www.reddit.com/prefs/apps "Sign up for Reddit API account.").
+Then create a text file that holds the API account credentials named "reddit_api_credentials.txt".
 The credentials file must be located in the repository's parent directory. In other words, put it in the same directory that the "climbing-route-bot" directory is in.
 
 The file must be in the format:

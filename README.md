@@ -20,7 +20,7 @@ A Reddit bot that identifies submissions containing pictures of rock climbing ro
 ## Results
 
 #### Submission Title
-Got the flash on Hanging Judge 11b in Clear Creek, CO
+>Got the flash on Hanging Judge 11b in Clear Creek, CO
 
 #### Generated Comment
 >## [Hanging Judge](https://www.mountainproject.com/route/105752059/hanging-judge?search=1&type=route&method=resultsPage&query=Hanging%20Judge "Mountain Project")

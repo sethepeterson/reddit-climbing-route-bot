@@ -47,7 +47,7 @@ A Reddit bot that identifies submissions containing pictures of rock climbing ro
 >
 >I am a bot, beep boop.
 >
->[Feedback](https://np.reddit.com/message/compose?to=ClimbingRouteBot "PM's and comments are monitored! Feedback is welcome.")
+>[Feedback](https://np.reddit.com/message/compose?to=ClimbingRouteBot "PM's and comments are monitored! Feedback is welcome.")  |  [Source Code](https://github.com/sethepeterson/climbing-route-bot "GitHub")
 
 Above is an example of a generated comment. 94 comments have been posted as of May 2019. Route identification accuracy on those comments is ~95%.
 </br>This can definitely be improved, as well as the volume of comments posted.

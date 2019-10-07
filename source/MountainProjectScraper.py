@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from Route import Route
 import os
 import re
 
@@ -91,12 +92,14 @@ class MountainProjectScraper:
     # Returns a list containing information on the route in the following format:
     # routeInfo = [routeName, locationChain, ydsRating, avgScore, routeType, firstAccent, description, mountainProjectLink]
     def scrapeRouteInfo(self, titleInfoList):
-        routeNameAndWebAddress = self.getRouteWebAddress(titleInfoList)
-        if routeNameAndWebAddress is None:
+        route = Route()
+
+        routeNameAndUrl = self.getRouteWebAddress(titleInfoList)
+        if routeNameAndUrl is None:
             return None
-        routeName = routeNameAndWebAddress[0]
-        routeWebAddress = routeNameAndWebAddress[1]
-        print('Determined matching route URL: ', routeWebAddress)
+        route.name = routeNameAndUrl[0]
+        route.url = routeNameAndUrl[1]
+        print('Determined matching route URL: ', route.url)
 
         # Use selenium webdriver to load HTML to BeautifulSoup.
         options = Options()
@@ -104,49 +107,95 @@ class MountainProjectScraper:
         options.add_argument('--log-level-3')
         chromeDriverPath = os.path.dirname(__file__) + '\\..\\tools\\chromedriver.exe'
         browser = webdriver.Chrome(chrome_options=options, executable_path=chromeDriverPath)
-        browser.get(routeWebAddress)
+        browser.get(route.url)
+        route.url = browser.current_url
         routePageHtml = browser.page_source
         browser.quit()
         routePageSoup = BeautifulSoup(routePageHtml, 'html.parser')
         print('\rSelenium/BeautifulSoup HTML loaded.')
 
         #############################
-        ######Gather route data######
+        ##### Gather route data #####
         #############################
-        # Location chain
-        locationsLinks = routePageSoup.find('div', {'class': 'mb-half small text-warm'}).find_all('a')
-        locationChain = ""
-        for locationLink in locationsLinks:
-            locationChain += locationLink.text + ' -> '
-        locationChain = locationChain.replace('All Locations -> ', '') # Remove header.
-        locationChain = locationChain[:-4] # Remove extra ' -> '.
+        # Location
+        locationsLinks = list(routePageSoup.find('div', {'class': 'mb-half small text-warm'}).find_all('a'))
+        area = None
+        subarea = None
+        if 'International' in locationsLinks[1].text:
+            if 'Australia' in locationsLinks[2].text:
+                area = self.getLocationName(locationsLinks[2])
+                subarea = self.getLocationName(locationsLinks[3])
+            else:
+                area = self.getLocationName(locationsLinks[3])
+                subarea = self.getLocationName(locationsLinks[4])
+        else:
+            area = self.getLocationName(locationsLinks[1])       # Example: Nevada
+            if area in locationsLinks[2].text:              # Example: East Nevada
+                subarea = self.getLocationName(locationsLinks[3])
+            else:
+                subarea = self.getLocationName(locationsLinks[2])
+        route.location = subarea + ', ' + area
 
-        # YDS rating
-        ydsRating = routePageSoup.find('span', {'class': 'rateYDS'}).text
+        # Rating
+        route.rating = routePageSoup.find('span', {'class': 'rateYDS'}).text.split()[0]
 
         # Average score
         avgScoreContainer = routePageSoup.find('span', {'id': re.compile('starsWithAvgText-*')})
-        avgScore = re.sub(' +', ' ', avgScoreContainer.text.strip().replace('\n',''))
-        avgScore = avgScore[5:] # Remove "Avg: "
+        scoreText = avgScoreContainer.text.strip().split()[1]
+        if '.' in scoreText:
+            route.score = float(scoreText)
+        else:
+            route.score = int(scoreText)
 
-        # Route type
-        routeType = routePageSoup.find(text="Type:").findNext('td').contents[0].strip()
+        # Route type & height
+        typeText = routePageSoup.find(text="Type:").findNext('td').contents[0].strip().split(',')
+        route.type = typeText[0]
+        if len(typeText) > 1:
+            route.height = ""
+            for word in typeText[1:]:
+                route.height += word + ', '
+        
 
+        # Remove route height extra ', ' if applicable.
+        if route.height is not None:
+            route.height = route.height[:-2]
+        
         # First accent
         firstAccent = routePageSoup.find(text="FA:").findNext('td').contents[0].strip()
+        if 'unknown' not in firstAccent:
+            route.firstAccent = firstAccent
 
         # Description & Protection
         routeInfoParagraphHeaders = routePageSoup.find_all('div', {'class': 'mt-2'})
         routeInfoParagraphs = routePageSoup.find_all('div', {'class': 'fr-view'})
-        description = None
-        protection = None
         paragraphIndex = 0
         for paragraphHeader in routeInfoParagraphHeaders:
             if 'Description' in paragraphHeader.text:
-                description = routeInfoParagraphs[paragraphIndex].text
+                route.descriptionUrl = route.url + '#' + paragraphHeader.find('a', recursive=False)['name']
+                route.description = routeInfoParagraphs[paragraphIndex].text.replace('"', '')
             if 'Protection' in paragraphHeader.text:
-                protection = routeInfoParagraphs[paragraphIndex].text
+                route.protectionUrl = route.url + '#' + paragraphHeader.find('a', recursive=False)['name']
+                route.protection = routeInfoParagraphs[paragraphIndex].text.replace('"', '')
             paragraphIndex = paragraphIndex + 1
 
         print('HTML data scraped.')
-        return [routeName, locationChain, ydsRating, avgScore, routeType, firstAccent, description, protection, routeWebAddress]
+        return route
+
+    def getLocationName(self, locationLink):
+        if '...' in locationLink.text:
+            options = Options()
+            options.headless = True
+            options.add_argument('--log-level-3')
+            chromeDriverPath = os.path.dirname(__file__) + '\\..\\tools\\chromedriver.exe'
+            browser = webdriver.Chrome(
+                chrome_options = options, executable_path = chromeDriverPath)
+            browser.get(locationLink['href'])
+            locationPageHtml = browser.page_source
+            browser.quit()
+            locationPageSoup = BeautifulSoup(locationPageHtml, 'html.parser')
+            return locationPageSoup.find('a', recursive=False).text.strip()[:-10]
+
+        else:
+            return locationLink.text
+
+

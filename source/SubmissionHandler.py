@@ -7,16 +7,16 @@ import time
 import os
 
 class SubmissionHandler:
-    # Returns a list containing information on the route in the following format:
-    # routeInfo = [routeName, locationChain, ydsRating, avgScore, routeType, firstAccent, description, mountainProjectLink]
-    def getRouteInfo(self, submission):
-        titleInfoList = self.getTitleInfo(submission)
-        if titleInfoList is None:
+    def __init__(self):
+        self.mountainProjectScraper = MountainProjectScraper()
+
+    # Returns a Route object corresponding to the submission.
+    def getRoute(self, submission):
+        titleInfo = self.getTitleInfo(submission)
+        if titleInfo is None:
             return None
         
-        mountainProjectScraper = MountainProjectScraper()
-        routeInfo = mountainProjectScraper.scrapeRouteInfo(titleInfoList)
-        return routeInfo
+        return self.mountainProjectScraper.scrapeRouteInfo(titleInfo)
 
 
     # Returns a list of possible names of the route and the route's rating.
@@ -89,7 +89,7 @@ class SubmissionHandler:
             print('Subreddit: ', submission.subreddit.display_name)
             print('Submission title: ', submission.title)
             seperator = "--------------------"
-            for char in submission.title:
+            for _ in submission.title:
                 seperator = seperator + '-'
             print(seperator)
             print('Possible route names:')

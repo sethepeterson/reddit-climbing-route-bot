@@ -8,6 +8,7 @@ import sys
 import traceback
 from datetime import datetime, timedelta
 
+
 class ClimbingRouteBot:
     REPLIED_SUBMISSIONS_PATH = os.path.dirname( __file__) + '\\..\\tools\\replied_submissions.txt'
     CREDENTIALS_PATH = os.path.dirname(__file__) + "\\..\\..\\reddit_api_credentials.txt"

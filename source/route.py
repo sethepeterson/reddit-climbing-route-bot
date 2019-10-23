@@ -1,5 +1,6 @@
 import math
 
+
 class Route:
     REDDIT_NEW_LINE = '\n\n'
     NEW_LINE = '\n'
@@ -20,7 +21,8 @@ class Route:
 
     def toComment(self):
         # Route header.
-        comment = '## [' + self.name + '](' + self.url + ' \"Mountain Project\")'
+        comment = '## [' + self.name + \
+            '](' + self.url + ' \"Mountain Project\")'
         comment += self.REDDIT_NEW_LINE + self.location
 
         # Horizontal divider.
@@ -89,17 +91,18 @@ class Route:
 
         # Description of the route.
         if self.description is not None:
-            comment += '[████████](' + self.descriptionUrl + ' \"' + self.description + '\")' + '|'
+            comment += '[████████](' + self.descriptionUrl + \
+                ' \"' + self.description + '\")' + '|'
 
         # Protection of the route.
         if self.protection is not None:
-            comment += '[███████](' + self.protectionUrl + ' \"' + self.protection + '\")' + '|'
+            comment += '[███████](' + self.protectionUrl + \
+                ' \"' + self.protection + '\")' + '|'
 
         # Signature.
         comment += self.REDDIT_NEW_LINE + 'I am a bot, beep boop.'
-        comment += self.REDDIT_NEW_LINE + '[Feedback](https://np.reddit.com/message/compose?to=ClimbingRouteBot \"PM\'s and comments are monitored! Feedback is welcome.\")'
+        comment += self.REDDIT_NEW_LINE + \
+            '[Feedback](https://np.reddit.com/message/compose?to=ClimbingRouteBot \"PM\'s and comments are monitored! Feedback is welcome.\")'
         comment += '  |  [GitHub](https://github.com/sethepeterson/climbing-route-bot \"Source Code\")'
 
         return comment
-
-

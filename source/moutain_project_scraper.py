@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.options import Options
 import os
 import re
 
+
 class MountainProjectScraper:
 
     # Scrapes the Mountain Project search page with the input as the possibleRouteName.

@@ -6,6 +6,7 @@ import sys
 import time
 import os
 
+
 class SubmissionHandler:
     def __init__(self):
         self.mountainProjectScraper = MountainProjectScraper()

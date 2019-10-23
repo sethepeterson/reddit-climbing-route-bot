@@ -15,7 +15,6 @@ class Route:
         self.location = None
         self.rating = None
         self.type = None
-        self.height = None
         self.score = None
         self.firstAccent = None
         self.description = None
@@ -37,9 +36,6 @@ class Route:
         # Column count.
         comment += self.REDDIT_NEW_LINE + '||||'
 
-        if self.height is not None:
-            comment += '|'
-
         if self.firstAccent is not None:
             comment += '|'
 
@@ -52,9 +48,6 @@ class Route:
         # Allignment.
         comment += self.NEW_LINE + '|:-|:-|:-|'
 
-        if self.height is not None:
-            comment += ':-|'
-
         if self.firstAccent is not None:
             comment += ':-|'
 
@@ -66,9 +59,6 @@ class Route:
 
         # Legend row.
         comment += self.NEW_LINE + '|Rating|Score|Type|'
-
-        if self.height is not None:
-            comment += 'Height|'
 
         if self.firstAccent is not None:
             comment += 'First Accent|'
@@ -83,9 +73,12 @@ class Route:
         comment += self.NEW_LINE + '|' + self.rating + '|'
 
         # Score
+        # Round star to nearest whole integer.
         starCount = self.score
         if starCount % 1 >= 0.5:
-            starCount = math.ceil(self.score) # Round star count up if it contains a remainder greater or equal to one half.
+            starCount = math.ceil(self.score)
+        else:
+            starCount = math.floor(self.score)
 
         for _ in range(starCount):
             comment += '★'
@@ -95,10 +88,6 @@ class Route:
 
         # Type
         comment += '|' + self.type + '|'
-
-        # Height
-        if self.height is not None:
-            comment += self.height + '|'
 
         # First Accent
         if self.firstAccent is not None:

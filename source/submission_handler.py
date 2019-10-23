@@ -1,5 +1,5 @@
+from source.moutain_project_scraper import MountainProjectScraper
 from bs4 import BeautifulSoup
-from MountainProjectScraper import MountainProjectScraper
 import praw
 import re
 import sys
@@ -48,7 +48,7 @@ class SubmissionHandler:
                         ratingIndex = index
 
             # Determine possible route names.
-            fillerWords = ['test']
+            fillerWords = ['of', 'to', 'in']
             possibleRouteNames = []
             possibleRouteName = ''
             for titleWord in revisedSubmissionTitleWords:

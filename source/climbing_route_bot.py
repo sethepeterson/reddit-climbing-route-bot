@@ -1,4 +1,4 @@
-from SubmissionHandler import SubmissionHandler
+from source.submission_handler import SubmissionHandler
 import praw
 import pdb
 import re
@@ -23,6 +23,8 @@ class ClimbingRouteBot:
             self.repliedSubmissions = list(
                 filter(None, self.repliedSubmissions))
             file.close()
+
+            self.checkedSubmissionsBuffer = []
 
         # Create Reddit instance.
         with open(self.CREDENTIALS_PATH, "r") as file:
@@ -50,15 +52,19 @@ class ClimbingRouteBot:
         while True:
             for submission in self.subreddits.new(limit = 100):
                 try:
-                    if not submission.is_self and submission.id not in self.repliedSubmissions:
+                    if not submission.is_self and submission.id not in self.repliedSubmissions and submission.id not in self.checkedSubmissionsBuffer:
+                        self.checkedSubmissionsBuffer.append(submission.id)
                         route = self.submissionHandler.getRoute(submission)
+
                         if route is not None:
                             submission.reply(route.toComment())
                             self.updateRepliedSubmissions(submission)
                             self.wait('Comment posted.', 60)
+
                 except:
                     traceback.print_exc()
                     self.wait('Exception occured.', 30)
+            self.wait('Batch parsed...', 180)
 
     def updateRepliedSubmissions(self, submission):
         self.repliedSubmissions.append(submission.id)
@@ -70,14 +76,12 @@ class ClimbingRouteBot:
     def wait(self, message, timeToWait):
         print()
         while timeToWait is not 0:
-            seconds = timedelta(seconds=timeToWait)
-            dateTime = datetime(1, 1, 1) + seconds
-            sys.stdout.write('\r' + message + ' Continuing in: %s:%s' % (
-                dateTime.minute, dateTime.second))
+            minutes = timeToWait % 60
+            seconds = timeToWait - (minutes * 60)
+            if seconds < 10:
+                seconds = '0{}'.format(seconds)
+
+            sys.stdout.write('\r' + message + ' Continuing in: {}:{}'.format(minutes, seconds))
             sys.stdout.flush()
             time.sleep(1)
             timeToWait = timeToWait - 1
-
-# Main
-climbingRouteBot = ClimbingRouteBot()
-climbingRouteBot.start()

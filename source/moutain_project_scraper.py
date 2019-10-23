@@ -1,7 +1,7 @@
+from source.route import Route
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from Route import Route
 import os
 import re
 
@@ -129,8 +129,8 @@ class MountainProjectScraper:
                 area = self.getLocationName(locationsLinks[3])
                 subarea = self.getLocationName(locationsLinks[4])
         else:
-            area = self.getLocationName(locationsLinks[1])       # Example: Nevada
-            if area in locationsLinks[2].text:              # Example: East Nevada
+            area = self.getLocationName(locationsLinks[1])          # Examples: Nevada
+            if area in locationsLinks[2].text:                      # Examples: East Nevada
                 subarea = self.getLocationName(locationsLinks[3])
             else:
                 subarea = self.getLocationName(locationsLinks[2])
@@ -147,22 +147,14 @@ class MountainProjectScraper:
         else:
             route.score = int(scoreText)
 
-        # Route type & height
-        typeText = routePageSoup.find(text="Type:").findNext('td').contents[0].strip().split(',')
-        route.type = typeText[0]
-        if len(typeText) > 1:
-            route.height = ""
-            for word in typeText[1:]:
-                route.height += word + ', '
-        
-
-        # Remove route height extra ', ' if applicable.
-        if route.height is not None:
-            route.height = route.height[:-2]
+        # Type
+        typeText = routePageSoup.find(text="Type:").findNext('td').contents[0].strip()
+        if typeText is not None:
+            route.type = typeText
         
         # First accent
         firstAccent = routePageSoup.find(text="FA:").findNext('td').contents[0].strip()
-        if 'unknown' not in firstAccent:
+        if 'unknown' not in firstAccent.lower():
             route.firstAccent = firstAccent
 
         # Description & Protection
@@ -182,7 +174,7 @@ class MountainProjectScraper:
         return route
 
     def getLocationName(self, locationLink):
-        if '...' in locationLink.text:
+        if '…' in locationLink.text:
             options = Options()
             options.headless = True
             options.add_argument('--log-level-3')
@@ -193,7 +185,7 @@ class MountainProjectScraper:
             locationPageHtml = browser.page_source
             browser.quit()
             locationPageSoup = BeautifulSoup(locationPageHtml, 'html.parser')
-            return locationPageSoup.find('a', recursive=False).text.strip()[:-10]
+            return locationPageSoup.select('h1')[0].text.strip()[:-9]
 
         else:
             return locationLink.text

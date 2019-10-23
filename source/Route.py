@@ -1,10 +1,4 @@
-from enum import Enum, auto
 import math
-
-# class Type(Enum):
-#     SPORT = auto()
-#     TRAD = auto()
-#     BOULDER = auto()
 
 class Route:
     REDDIT_NEW_LINE = '\n\n'

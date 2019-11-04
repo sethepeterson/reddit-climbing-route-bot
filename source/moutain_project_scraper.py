@@ -137,21 +137,21 @@ class MountainProjectScraper:
                 subarea = self.getLocationName(locationsLinks[2])
         route.location = subarea + ', ' + area
 
-        # Rating
-        route.rating = routePageSoup.find('span', {'class': 'rateYDS'}).text.split()[0]
+        # Grade
+        route.grade = routePageSoup.find('span', {'class': 'rateYDS'}).text.split()[0]
 
-        # Average score
+        # Rating
         avgScoreContainer = routePageSoup.find('span', {'id': re.compile('starsWithAvgText-*')})
         scoreText = avgScoreContainer.text.strip().split()[1]
         if '.' in scoreText:
-            route.score = float(scoreText)
+            route.rating = float(scoreText)
         else:
-            route.score = int(scoreText)
+            route.rating = int(scoreText)
 
-        # Type
+        # Info
         typeText = routePageSoup.find(text="Type:").findNext('td').contents[0].strip()
         if typeText is not None:
-            route.type = typeText
+            route.info = typeText
         
         # First accent
         firstAccent = routePageSoup.find(text="FA:").findNext('td').contents[0].strip()

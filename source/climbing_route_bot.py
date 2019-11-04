@@ -54,13 +54,14 @@ class ClimbingRouteBot:
             for submission in self.subreddits.new(limit = 100):
                 try:
                     if not submission.is_self and submission.id not in self.repliedSubmissions and submission.id not in self.checkedSubmissionsBuffer:
-                        self.checkedSubmissionsBuffer.append(submission.id)
-                        route = self.submissionHandler.getRoute(submission)
+                        if time.time() - submission.created_utc < 7200:
+                            self.checkedSubmissionsBuffer.append(submission.id)
+                            route = self.submissionHandler.getRoute(submission)
 
-                        if route is not None:
-                            submission.reply(route.toComment())
-                            self.updateRepliedSubmissions(submission)
-                            self.wait('Comment posted.', 60)
+                            if route is not None:
+                                submission.reply(route.toComment())
+                                self.updateRepliedSubmissions(submission)
+                                self.wait('Comment posted.', 60)
 
                 except:
                     traceback.print_exc()

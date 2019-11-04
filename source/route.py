@@ -8,9 +8,9 @@ class Route:
     def __init__(self):
         self.name = None
         self.location = None
+        self.grade = None
+        self.info = None
         self.rating = None
-        self.type = None
-        self.score = None
         self.firstAccent = None
         self.description = None
         self.protection = None
@@ -21,60 +21,35 @@ class Route:
 
     def toComment(self):
         # Route header.
-        comment = '## [' + self.name + \
+        comment = '### [' + self.name + \
             '](' + self.url + ' \"Mountain Project\")'
-        comment += self.REDDIT_NEW_LINE + self.location
 
         # Horizontal divider.
-        comment += self.REDDIT_NEW_LINE + '***'
+        # comment += self.REDDIT_NEW_LINE + '***'
 
         # Table Format.
-        # Column count.
-        comment += self.REDDIT_NEW_LINE + '||||'
-
-        if self.firstAccent is not None:
-            comment += '|'
-
-        if self.description is not None:
-            comment += '|'
-
-        if self.protection is not None:
-            comment += '|'
-
-        # Allignment.
-        comment += self.NEW_LINE + '|:-|:-|:-|'
-
-        if self.firstAccent is not None:
-            comment += ':-|'
-
-        if self.description is not None:
-            comment += ':-|'
-
-        if self.protection is not None:
-            comment += ':-|'
-
         # Legend row.
-        comment += self.NEW_LINE + '|Rating|Score|Type|'
+        comment += self.NEW_LINE + '|Grade|Rating|Location|Info|'
 
         if self.firstAccent is not None:
             comment += 'First Accent|'
 
-        if self.description is not None:
-            comment += 'Description|'
+        # Allignment.
+        comment += self.NEW_LINE + '|:-|:-|:-|:-|'
 
-        if self.protection is not None:
-            comment += 'Protection|'
+        if self.firstAccent is not None:
+            comment += ':-|'
+
+        # Grade
+        comment += self.NEW_LINE + '|' + self.grade + '|'
 
         # Rating
-        comment += self.NEW_LINE + '|' + self.rating + '|'
-
-        # Score
         # Round star to nearest whole integer.
-        starCount = self.score
+        starCount = self.rating
         if starCount % 1 >= 0.5:
-            starCount = math.ceil(self.score)
+            starCount = math.ceil(self.rating)
         else:
-            starCount = math.floor(self.score)
+            starCount = math.floor(self.rating)
 
         for _ in range(starCount):
             comment += '★'
@@ -82,8 +57,11 @@ class Route:
         for _ in range(4 - starCount):
             comment += '☆'
 
-        # Type
-        comment += '|' + self.type + '|'
+        # Location
+        comment += '|' + self.location + '|'
+
+        # Info
+        comment += self.info + '|'
 
         # First Accent
         if self.firstAccent is not None:
@@ -91,18 +69,12 @@ class Route:
 
         # Description of the route.
         if self.description is not None:
-            comment += '[████████](' + self.descriptionUrl + \
-                ' \"' + self.description + '\")' + '|'
-
-        # Protection of the route.
-        if self.protection is not None:
-            comment += '[███████](' + self.protectionUrl + \
-                ' \"' + self.protection + '\")' + '|'
+            comment += self.REDDIT_NEW_LINE + '>' + self.description
 
         # Signature.
-        comment += self.REDDIT_NEW_LINE + 'I am a bot, beep boop.'
         comment += self.REDDIT_NEW_LINE + \
             '[Feedback](https://np.reddit.com/message/compose?to=ClimbingRouteBot \"PM\'s and comments are monitored! Feedback is welcome.\")'
         comment += '  |  [GitHub](https://github.com/sethepeterson/climbing-route-bot \"Source Code\")'
+        # comment += '  |  ^(I am a bot, beep boop.)'
 
         return comment

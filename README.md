@@ -1,12 +1,9 @@
 # Reddit Climbing Route Bot
-
-## Summary 
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/sethepeterson/reddit-climbing-route-bot.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sethepeterson/reddit-climbing-route-bot/context:python)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/sethepeterson/reddit-climbing-route-bot.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sethepeterson/reddit-climbing-route-bot/alerts/)
+<br>
 A Reddit bot that identifies submissions containing pictures of rock climbing routes and publishes comments with information about the corresponding route that is scraped from Mountain Project.
 
-#### Requirements
-
-- Python 3
-- Google Chrome Version 77.0.3865.90
 
 #### Dependencies
 

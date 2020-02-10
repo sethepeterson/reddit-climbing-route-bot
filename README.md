@@ -34,8 +34,6 @@ Example:
 After this is completed, execute ClimbingRouteBot.py.
 
 
-
-</br></br>
 ### Results
 
 #### Submission

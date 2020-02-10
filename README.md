@@ -5,16 +5,14 @@
 A Reddit bot that identifies submissions containing pictures of rock climbing routes and publishes comments with information about the corresponding route that is scraped from Mountain Project.
 
 
-#### Dependencies
+### Dependencies
 
 - [PRAW](https://github.com/praw-dev/praw "GitHub") </br>
 - [Selenium](https://github.com/seleniumbase/SeleniumBase "GitHub") </br>
 - [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/ "Documentation")
 
 
-
-</br></br>
-## Execution
+### Execution
 To execute the script you must [sign up for a Reddit API account](https://www.reddit.com/prefs/apps "Sign up for Reddit API account.").
 Then create a text file that holds the API account credentials named "reddit_api_credentials.txt".
 The credentials file must be located in the repository's parent directory. In other words, put it in the same directory that the "climbing-route-bot" directory is in.
@@ -38,7 +36,7 @@ After this is completed, execute ClimbingRouteBot.py.
 
 
 </br></br>
-## Results
+### Results
 
 #### Submission
 ![Submission Example](https://github.com/sethepeterson/climbing-route-bot/blob/master/media/SubmissionExample.PNG)

@@ -3,11 +3,8 @@ from source.extensions import Extensions
 from source.ui_manager import UiManager
 from source.email_manager import EmailManager
 import praw
-import pdb
-import re
 import os
 import time
-import sys
 import traceback
 from datetime import datetime, timedelta
 

@@ -1,12 +1,7 @@
 from source.moutain_project_scraper import MountainProjectScraper
 from source.ui_manager import UiManager
 from source.extensions import Extensions
-from bs4 import BeautifulSoup
-import praw
 import re
-import sys
-import time
-import os
 
 
 class SubmissionHandler:

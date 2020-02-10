@@ -41,7 +41,7 @@ class UiManager:
                 selection = int(input('Select an option: '))
                 if selection >= 0 or selection <= len(routes):
                     return selection
-            except:
+            except ValueError:
                 continue
 
     @staticmethod
